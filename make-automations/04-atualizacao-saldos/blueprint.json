@@ -1,0 +1,1280 @@
+{
+    "name": "Atualização Saldos - VLeandro (Fabrica>)",
+    "flow": [
+        {
+            "id": 1,
+            "module": "util:BasicTrigger",
+            "version": 1,
+            "parameters": {
+                "values": [
+                    {
+                        "spec": [
+                            {
+                                "name": "Saldo",
+                                "value": "saldo"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "values": {
+                            "items": [
+                                {
+                                    "spec": {
+                                        "mode": "chose",
+                                        "items": [
+                                            null
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "values",
+                        "spec": [
+                            {
+                                "name": "spec",
+                                "spec": [
+                                    {
+                                        "name": "name",
+                                        "type": "text",
+                                        "label": "Name",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "value",
+                                        "type": "text",
+                                        "label": "Value",
+                                        "required": true
+                                    }
+                                ],
+                                "type": "array",
+                                "label": "Items",
+                                "required": true
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Bundles",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "saldo",
+                        "type": "text",
+                        "label": "saldo"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 9,
+                            "module": "http:ActionSendData",
+                            "version": 3,
+                            "parameters": {
+                                "handleErrors": true,
+                                "useNewZLibDeCompress": true
+                            },
+                            "mapper": {
+                                "ca": "",
+                                "qs": [],
+                                "url": "https://graph.facebook.com/v16.0/act_4467059846720291?fields=name,balance,funding_source_details,is_prepay_account",
+                                "gzip": true,
+                                "method": "get",
+                                "headers": [
+                                    {
+                                        "name": "Authorization",
+                                        "value": "Bearer EAAWfP0VotB8BPuO3NUhlOI8pqcsuFQKunHBHR0ZAJcrl9aWoS2V3xaw3WY5CRYT97FtNbuMf37odBQm4JSey3tJgfEBUMNKc7Ee3PIjHVhw26cKtejFNE4RvknlKZBt2akNmEsnZAAOqZBGIDZBMhgHgcZBD6RUQ1J5ciBBGak1ZBllh4MZBKGZAuZAa9nYB53hZBqTZCSofUDef"
+                                    }
+                                ],
+                                "timeout": "",
+                                "useMtls": false,
+                                "authPass": "",
+                                "authUser": "",
+                                "bodyType": "",
+                                "serializeUrl": false,
+                                "shareCookies": false,
+                                "parseResponse": false,
+                                "followRedirect": true,
+                                "useQuerystring": false,
+                                "followAllRedirects": false,
+                                "rejectUnauthorized": true
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 600,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "qs": {
+                                            "mode": "chose"
+                                        },
+                                        "method": {
+                                            "mode": "chose",
+                                            "label": "GET"
+                                        },
+                                        "headers": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "bodyType": {
+                                            "label": "Empty"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "handleErrors",
+                                        "type": "boolean",
+                                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useNewZLibDeCompress",
+                                        "type": "hidden"
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "url",
+                                        "type": "url",
+                                        "label": "URL",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "serializeUrl",
+                                        "type": "boolean",
+                                        "label": "Serialize URL",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "method",
+                                        "type": "select",
+                                        "label": "Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "get",
+                                                "head",
+                                                "post",
+                                                "put",
+                                                "patch",
+                                                "delete",
+                                                "options"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "headers",
+                                        "spec": [
+                                            {
+                                                "name": "name",
+                                                "type": "text",
+                                                "label": "Name",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Headers"
+                                    },
+                                    {
+                                        "name": "qs",
+                                        "spec": [
+                                            {
+                                                "name": "name",
+                                                "type": "text",
+                                                "label": "Name",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "text",
+                                                "label": "Value"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Query String"
+                                    },
+                                    {
+                                        "name": "bodyType",
+                                        "type": "select",
+                                        "label": "Body type",
+                                        "validate": {
+                                            "enum": [
+                                                "raw",
+                                                "x_www_form_urlencoded",
+                                                "multipart_form_data"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "parseResponse",
+                                        "type": "boolean",
+                                        "label": "Parse response",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "authUser",
+                                        "type": "text",
+                                        "label": "User name"
+                                    },
+                                    {
+                                        "name": "authPass",
+                                        "type": "password",
+                                        "label": "Password"
+                                    },
+                                    {
+                                        "name": "timeout",
+                                        "type": "uinteger",
+                                        "label": "Timeout",
+                                        "validate": {
+                                            "max": 300,
+                                            "min": 1
+                                        }
+                                    },
+                                    {
+                                        "name": "shareCookies",
+                                        "type": "boolean",
+                                        "label": "Share cookies with other HTTP modules",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "ca",
+                                        "type": "cert",
+                                        "label": "Self-signed certificate"
+                                    },
+                                    {
+                                        "name": "rejectUnauthorized",
+                                        "type": "boolean",
+                                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "followRedirect",
+                                        "type": "boolean",
+                                        "label": "Follow redirect",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useQuerystring",
+                                        "type": "boolean",
+                                        "label": "Disable serialization of multiple same query string keys as arrays",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "gzip",
+                                        "type": "boolean",
+                                        "label": "Request compressed content",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useMtls",
+                                        "type": "boolean",
+                                        "label": "Use Mutual TLS",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "followAllRedirects",
+                                        "type": "boolean",
+                                        "label": "Follow all redirect",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 10,
+                            "module": "json:ParseJSON",
+                            "version": 1,
+                            "parameters": {
+                                "type": ""
+                            },
+                            "mapper": {
+                                "json": "{{9.data}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 900,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "type": {
+                                            "label": "Choose a data structure"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "type",
+                                        "type": "udt",
+                                        "label": "Data structure"
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "json",
+                                        "type": "text",
+                                        "label": "JSON string",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 11,
+                            "module": "ai-agent:RunAnAIAgent",
+                            "version": 0,
+                            "parameters": {},
+                            "mapper": {
+                                "agent": "0604bf39-02b1-4b4e-ae2c-abe8663d1f02",
+                                "timeout": "",
+                                "messages": [
+                                    "{{10.funding_source_details.display_string}}"
+                                ],
+                                "threadID": "",
+                                "outputType": "",
+                                "additionalSystemPrompt": ""
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1200,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "agent": {
+                                            "label": "Saldo"
+                                        },
+                                        "messages": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "outputType": {
+                                            "label": "Empty"
+                                        }
+                                    }
+                                },
+                                "expect": [
+                                    {
+                                        "name": "agent",
+                                        "type": "aiagent",
+                                        "label": "Agent",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "threadID",
+                                        "type": "text",
+                                        "label": "Thread ID",
+                                        "validate": {
+                                            "max": 256
+                                        }
+                                    },
+                                    {
+                                        "name": "additionalSystemPrompt",
+                                        "type": "text",
+                                        "label": "Additional system instructions"
+                                    },
+                                    {
+                                        "name": "messages",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "text",
+                                            "label": "Message"
+                                        },
+                                        "type": "array",
+                                        "label": "Messages"
+                                    },
+                                    {
+                                        "name": "timeout",
+                                        "type": "number",
+                                        "label": "Timeout",
+                                        "validate": {
+                                            "max": 600,
+                                            "min": 120
+                                        }
+                                    },
+                                    {
+                                        "name": "outputType",
+                                        "type": "select",
+                                        "label": "Output schema",
+                                        "validate": {
+                                            "enum": [
+                                                "text",
+                                                "make-schema"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 86,
+                            "module": "facebook-insights:GetAdAccountInsights",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 5678724
+                            },
+                            "mapper": {
+                                "type": "adAccount",
+                                "limit": "100",
+                                "fields": [
+                                    "spend"
+                                ],
+                                "business": "1961035524171045",
+                                "adAccount": "act_4467059846720291",
+                                "date_preset": "yesterday",
+                                "specify_date": "date_preset"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1500,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "sort": {
+                                            "mode": "chose"
+                                        },
+                                        "type": {
+                                            "mode": "chose",
+                                            "label": "Ad Account"
+                                        },
+                                        "level": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "fields": {
+                                            "mode": "chose",
+                                            "label": [
+                                                "Spend"
+                                            ]
+                                        },
+                                        "business": {
+                                            "mode": "chose",
+                                            "label": "Vanguarda Comunicação"
+                                        },
+                                        "adAccount": {
+                                            "mode": "chose",
+                                            "label": "FABRICA DE EVENTOS [01]"
+                                        },
+                                        "filtering": {
+                                            "mode": "chose"
+                                        },
+                                        "breakdowns": {
+                                            "mode": "chose"
+                                        },
+                                        "date_preset": {
+                                            "mode": "chose",
+                                            "label": "Yesterday"
+                                        },
+                                        "specify_date": {
+                                            "label": "Date Preset"
+                                        },
+                                        "action_breakdowns": {
+                                            "mode": "chose"
+                                        },
+                                        "action_report_time": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "action_attribution_windows": {
+                                            "mode": "chose"
+                                        },
+                                        "use_account_attribution_setting": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "facebook"
+                                            },
+                                            "label": "My Facebook connection (Leandro Moreira)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:facebook",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "type",
+                                        "type": "select",
+                                        "label": "Get Insights for",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "campaign",
+                                                "adAccount",
+                                                "adSet",
+                                                "ad"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "specify_date",
+                                        "type": "select",
+                                        "label": "Specify Date by",
+                                        "validate": {
+                                            "enum": [
+                                                "date_preset",
+                                                "time_range",
+                                                "time_ranges"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "fields",
+                                        "type": "select",
+                                        "label": "Fields",
+                                        "multiple": true,
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "breakdowns",
+                                        "type": "select",
+                                        "label": "Breakdowns",
+                                        "multiple": true
+                                    },
+                                    {
+                                        "name": "limit",
+                                        "type": "uinteger",
+                                        "label": "Limit",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "level",
+                                        "type": "select",
+                                        "label": "Level",
+                                        "validate": {
+                                            "enum": [
+                                                "ad",
+                                                "adset",
+                                                "account",
+                                                "campaign"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "product_id_limit",
+                                        "type": "text",
+                                        "label": "Product ID Limit"
+                                    },
+                                    {
+                                        "name": "use_account_attribution_setting",
+                                        "type": "boolean",
+                                        "label": "Use Account Attribution Setting"
+                                    },
+                                    {
+                                        "name": "action_attribution_windows",
+                                        "type": "select",
+                                        "label": "Action Attribution Windows",
+                                        "multiple": true,
+                                        "validate": {
+                                            "enum": [
+                                                "1d_view",
+                                                "7d_view",
+                                                "28d_view",
+                                                "1d_click",
+                                                "7d_click",
+                                                "28d_click",
+                                                "default"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "action_breakdowns",
+                                        "type": "select",
+                                        "label": "Action Breakdowns",
+                                        "multiple": true,
+                                        "validate": {
+                                            "enum": [
+                                                "action_device",
+                                                "action_canvas_component_name",
+                                                "action_carousel_card_id",
+                                                "action_carousel_card_name",
+                                                "action_destination",
+                                                "action_reaction",
+                                                "action_target_id",
+                                                "action_type",
+                                                "action_video_sound",
+                                                "action_video_type"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "action_report_time",
+                                        "type": "select",
+                                        "label": "Action Report Time",
+                                        "validate": {
+                                            "enum": [
+                                                "impression",
+                                                "conversion"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "filtering",
+                                        "spec": [
+                                            {
+                                                "name": "field",
+                                                "type": "select",
+                                                "label": "Field",
+                                                "dynamic": true,
+                                                "options": [],
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "operator",
+                                                "type": "select",
+                                                "label": "Operator",
+                                                "grouped": true,
+                                                "options": [
+                                                    {
+                                                        "label": "String",
+                                                        "options": [
+                                                            {
+                                                                "label": "Equal",
+                                                                "value": "EQUAL"
+                                                            },
+                                                            {
+                                                                "label": "Not equal",
+                                                                "value": "NOT_EQUAL"
+                                                            },
+                                                            {
+                                                                "label": "Contain",
+                                                                "value": "CONTAIN"
+                                                            },
+                                                            {
+                                                                "label": "Not contain",
+                                                                "value": "NOT_CONTAIN"
+                                                            },
+                                                            {
+                                                                "label": "Starts with",
+                                                                "value": "STARTS_WITH"
+                                                            },
+                                                            {
+                                                                "label": "None",
+                                                                "value": "NONE"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "label": "Number",
+                                                        "options": [
+                                                            {
+                                                                "label": "Equal",
+                                                                "value": "EQUAL"
+                                                            },
+                                                            {
+                                                                "label": "Not equal",
+                                                                "value": "NOT_EQUAL"
+                                                            },
+                                                            {
+                                                                "label": "Greater than",
+                                                                "value": "GREATER_THAN"
+                                                            },
+                                                            {
+                                                                "label": "Greater than or equal",
+                                                                "value": "GREATER_THAN_OR_EQUAL"
+                                                            },
+                                                            {
+                                                                "label": "Less than",
+                                                                "value": "LESS_THAN"
+                                                            },
+                                                            {
+                                                                "label": "Less than or than",
+                                                                "value": "LESS_THAN_OR_EQUAL"
+                                                            },
+                                                            {
+                                                                "label": "None",
+                                                                "value": "NONE"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "label": "Array",
+                                                        "options": [
+                                                            {
+                                                                "label": "In",
+                                                                "value": "IN"
+                                                            },
+                                                            {
+                                                                "label": "Not in",
+                                                                "value": "NOT_IN"
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "value",
+                                                "type": "any",
+                                                "label": "Value"
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Filter"
+                                    },
+                                    {
+                                        "name": "sort",
+                                        "spec": [
+                                            {
+                                                "name": "field",
+                                                "type": "select",
+                                                "label": "Field",
+                                                "dynamic": true,
+                                                "options": [],
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "direction",
+                                                "type": "select",
+                                                "label": "Direction",
+                                                "options": [
+                                                    {
+                                                        "label": "Ascending",
+                                                        "value": "ascending",
+                                                        "default": true
+                                                    },
+                                                    {
+                                                        "label": "Descending",
+                                                        "value": "descending"
+                                                    }
+                                                ],
+                                                "required": true
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Sort",
+                                        "validate": {
+                                            "maxItems": 1
+                                        }
+                                    },
+                                    {
+                                        "name": "business",
+                                        "type": "select",
+                                        "label": "Business Manager",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "adAccount",
+                                        "type": "select",
+                                        "label": "Ad Account",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "date_preset",
+                                        "type": "select",
+                                        "label": "Date Preset",
+                                        "validate": {
+                                            "enum": [
+                                                "today",
+                                                "yesterday",
+                                                "this_week_sun_today",
+                                                "this_week_mon_today",
+                                                "last_week_sun_sat",
+                                                "last_week_mon_sun",
+                                                "this_month",
+                                                "last_month",
+                                                "this_quarter",
+                                                "last_3d",
+                                                "last_7d",
+                                                "last_14d",
+                                                "last_28d",
+                                                "last_30d",
+                                                "last_90d",
+                                                "this_year",
+                                                "last_year",
+                                                "lifetime"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "time_increment",
+                                        "type": "text",
+                                        "label": "Time Increment"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "__IMTLENGTH__",
+                                        "type": "uinteger",
+                                        "label": "Total number of bundles"
+                                    },
+                                    {
+                                        "name": "__IMTINDEX__",
+                                        "type": "uinteger",
+                                        "label": "Bundle order position"
+                                    },
+                                    {
+                                        "name": "date_start",
+                                        "type": "text",
+                                        "label": "Date Start"
+                                    },
+                                    {
+                                        "name": "date_stop",
+                                        "type": "text",
+                                        "label": "Date Stop"
+                                    },
+                                    {
+                                        "name": "spend",
+                                        "type": "text",
+                                        "label": "Spend"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 88,
+                            "module": "google-sheets:updateCell",
+                            "version": 2,
+                            "parameters": {
+                                "__IMTCONN__": 4582562
+                            },
+                            "mapper": {
+                                "cell": "K26",
+                                "from": "drive",
+                                "value": "{{86.spend}}",
+                                "select": "list",
+                                "sheetId": "NOVEMBRO - 25",
+                                "spreadsheetId": "/1fQwSzJho05-E_qUlG_BShj0EcI04hrRh7IDNCGRgCFY",
+                                "valueInputOption": "USER_ENTERED"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1800,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "from": {
+                                            "label": "My Drive"
+                                        },
+                                        "select": {
+                                            "label": "Search by path"
+                                        },
+                                        "sheetId": {
+                                            "label": "NOVEMBRO - 25"
+                                        },
+                                        "spreadsheetId": {
+                                            "path": [
+                                                "Cópia de Cheklist Clientes"
+                                            ]
+                                        },
+                                        "valueInputOption": {
+                                            "mode": "chose",
+                                            "label": "User entered"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "My Google connection (lemodosantos@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Search Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "list",
+                                                "fromAll",
+                                                "map"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "cell",
+                                        "type": "text",
+                                        "label": "Cell",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "value",
+                                        "type": "text",
+                                        "label": "Value"
+                                    },
+                                    {
+                                        "name": "valueInputOption",
+                                        "type": "select",
+                                        "label": "Value input option",
+                                        "validate": {
+                                            "enum": [
+                                                "USER_ENTERED",
+                                                "RAW"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "spreadsheetId",
+                                        "type": "file",
+                                        "label": "Spreadsheet ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "sheetId",
+                                        "type": "select",
+                                        "label": "Sheet Name",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "module": "google-sheets:updateCell",
+                            "version": 2,
+                            "parameters": {
+                                "__IMTCONN__": 4582562
+                            },
+                            "mapper": {
+                                "cell": "I26",
+                                "from": "drive",
+                                "value": "{{formatDate(now; \"DD/MM/YYYY\")}}",
+                                "select": "list",
+                                "sheetId": "NOVEMBRO - 25",
+                                "spreadsheetId": "/1fQwSzJho05-E_qUlG_BShj0EcI04hrRh7IDNCGRgCFY",
+                                "valueInputOption": "USER_ENTERED"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 2100,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "from": {
+                                            "label": "My Drive"
+                                        },
+                                        "select": {
+                                            "label": "Search by path"
+                                        },
+                                        "sheetId": {
+                                            "label": "NOVEMBRO - 25"
+                                        },
+                                        "spreadsheetId": {
+                                            "path": [
+                                                "Cópia de Cheklist Clientes"
+                                            ]
+                                        },
+                                        "valueInputOption": {
+                                            "mode": "chose",
+                                            "label": "User entered"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "My Google connection (lemodosantos@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Search Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "list",
+                                                "fromAll",
+                                                "map"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "cell",
+                                        "type": "text",
+                                        "label": "Cell",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "value",
+                                        "type": "text",
+                                        "label": "Value"
+                                    },
+                                    {
+                                        "name": "valueInputOption",
+                                        "type": "select",
+                                        "label": "Value input option",
+                                        "validate": {
+                                            "enum": [
+                                                "USER_ENTERED",
+                                                "RAW"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "spreadsheetId",
+                                        "type": "file",
+                                        "label": "Spreadsheet ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "sheetId",
+                                        "type": "select",
+                                        "label": "Sheet Name",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 12,
+                            "module": "google-sheets:updateCell",
+                            "version": 2,
+                            "parameters": {
+                                "__IMTCONN__": 4582562
+                            },
+                            "mapper": {
+                                "cell": "H26",
+                                "from": "drive",
+                                "value": "{{11.response}}",
+                                "select": "list",
+                                "sheetId": "NOVEMBRO - 25",
+                                "spreadsheetId": "/1fQwSzJho05-E_qUlG_BShj0EcI04hrRh7IDNCGRgCFY",
+                                "valueInputOption": "USER_ENTERED"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 2400,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "from": {
+                                            "label": "My Drive"
+                                        },
+                                        "select": {
+                                            "label": "Search by path"
+                                        },
+                                        "sheetId": {
+                                            "label": "NOVEMBRO - 25"
+                                        },
+                                        "spreadsheetId": {
+                                            "path": [
+                                                "Cópia de Cheklist Clientes"
+                                            ]
+                                        },
+                                        "valueInputOption": {
+                                            "mode": "chose",
+                                            "label": "User entered"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google"
+                                            },
+                                            "label": "My Google connection (lemodosantos@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Search Method",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "list",
+                                                "fromAll",
+                                                "map"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "cell",
+                                        "type": "text",
+                                        "label": "Cell",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "value",
+                                        "type": "text",
+                                        "label": "Value"
+                                    },
+                                    {
+                                        "name": "valueInputOption",
+                                        "type": "select",
+                                        "label": "Value input option",
+                                        "validate": {
+                                            "enum": [
+                                                "USER_ENTERED",
+                                                "RAW"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "Drive",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "drive",
+                                                "share",
+                                                "team"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "spreadsheetId",
+                                        "type": "file",
+                                        "label": "Spreadsheet ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "sheetId",
+                                        "type": "select",
+                                        "label": "Sheet Name",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": [
+            {
+                "moduleIds": [
+                    12
+                ],
+                "content": "<p>FÁBRICA DE EVENTOS - 4467059846720291</p>",
+                "isFilterNote": false,
+                "metadata": {
+                    "color": "#9138FE"
+                }
+            }
+        ]
+    }
+}
